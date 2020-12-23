@@ -1,4 +1,4 @@
-package com.javainuse.model;
+package com.spt.app.model;
 
 import java.io.Serializable;
 

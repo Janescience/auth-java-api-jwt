@@ -1,6 +1,6 @@
-package com.javainuse.controller;
+package com.spt.app.controller;
 
-import com.javainuse.config.JwtAuthenticationToken;
+import com.spt.app.config.JwtAuthenticationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.javainuse.config;
+package com.spt.app.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;

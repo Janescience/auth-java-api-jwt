@@ -1,9 +1,9 @@
-package com.javainuse.service;
+package com.spt.app.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.javainuse.model.User;
-import com.javainuse.respository.UserRepository;
+import com.spt.app.model.User;
+import com.spt.app.respository.UserRepository;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

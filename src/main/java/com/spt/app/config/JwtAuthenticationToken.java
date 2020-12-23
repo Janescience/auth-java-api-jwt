@@ -1,4 +1,4 @@
-package com.javainuse.config;
+package com.spt.app.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

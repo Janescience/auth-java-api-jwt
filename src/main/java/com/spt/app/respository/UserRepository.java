@@ -1,9 +1,8 @@
-package com.javainuse.respository;
+package com.spt.app.respository;
 
+import com.spt.app.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
-import com.javainuse.model.User;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {

@@ -1,9 +1,9 @@
-package com.javainuse.controller;
+package com.spt.app.controller;
 
-import com.javainuse.config.JwtAuthenticationToken;
-import com.javainuse.model.JwtAuthenticationRequest;
-import com.javainuse.respository.UserRepository;
-import com.javainuse.service.JwtAuthenticationUserDetailsService;
+import com.spt.app.config.JwtAuthenticationToken;
+import com.spt.app.model.JwtAuthenticationRequest;
+import com.spt.app.respository.UserRepository;
+import com.spt.app.service.JwtAuthenticationUserDetailsService;
 import flexjson.JSONSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
