@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @CrossOrigin()
-public class GreetingController {
+public class    GreetingController {
 
     @Autowired
     private JwtAuthenticationToken jwtAuthenticationToken;
