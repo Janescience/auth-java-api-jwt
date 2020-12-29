@@ -1,6 +1,6 @@
 package com.spt.app.controller;
 
-import com.spt.app.config.JwtAuthenticationToken;
+import com.spt.app.security.JWTPrinciple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @CrossOrigin()
-public class    GreetingController {
+public class GreetingController {
 
     @Autowired
-    private JwtAuthenticationToken jwtAuthenticationToken;
+    private JWTPrinciple JWTPrinciple;
 
     @GetMapping("/greeting")
     public String getEmployees(HttpServletRequest request) {
@@ -23,7 +23,7 @@ public class    GreetingController {
 
         if (requestTokenHeader != null) {
             String jwtToken = requestTokenHeader.substring(7);
-            username = jwtAuthenticationToken.getUsernameFromToken(jwtToken);
+            username = JWTPrinciple.getUsernameFromToken(jwtToken);
         }
 
         return "Welcome " + username + " :D";

@@ -1,4 +1,4 @@
-package com.spt.app.config;
+package com.spt.app.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
-public class JwtAuthenticationToken implements Serializable {
+public class JWTPrinciple implements Serializable {
 
     private static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 

@@ -1,7 +1,5 @@
 package com.spt.app.service;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.spt.app.model.User;
 import com.spt.app.respository.UserRepository;
 import org.json.JSONObject;
@@ -17,9 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
-public class JwtAuthenticationUserDetailsService implements UserDetailsService {
-
-    protected Gson gson = new GsonBuilder().create();
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;

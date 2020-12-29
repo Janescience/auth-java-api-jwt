@@ -1,12 +1,12 @@
-package com.spt.app.model;
+package com.spt.app.security;
 
 import java.io.Serializable;
 
-public class JwtAuthenticationResponse implements Serializable {
+public class JWTAuthenticationToken implements Serializable {
 
     private final String jwttoken;
 
-    public JwtAuthenticationResponse(String jwttoken) {
+    public JWTAuthenticationToken(String jwttoken) {
         this.jwttoken = jwttoken;
     }
 

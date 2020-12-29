@@ -1,6 +1,5 @@
-package com.spt.app.config;
+package com.spt.app.security;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -11,7 +10,7 @@ import java.io.IOException;
 import java.io.Serializable;
 
 @Component
-public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Serializable {
+public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint, Serializable {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
