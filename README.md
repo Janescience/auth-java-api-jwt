@@ -1,6 +1,6 @@
 # Register & Authentication Service 
 
-Spring Boot + JWT + Mockito 
+Spring Boot + JWT
 ## Design
 ### Structure Database (SQLServer)
 ```sql
