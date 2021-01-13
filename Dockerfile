@@ -8,4 +8,4 @@ RUN locale-gen en_US.UTF-8
 ENV TZ=Asia/Bangkok
 ARG JAR_FILE=target/APIBackendTestApplication.war
 COPY ${JAR_FILE} APIBackendTestApplication.war
-ENTRYPOINT ["java","-jar","-Dspring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=javabackendtest","-Dserver.port=8080","-Dspring.jpa.show-sql=false","-Dspring.jpa.hibernate.ddl-auto=update","-Dspring.boot.admin.client.url=http://localhost:8008","/APIBackendTestApplication.war"]
+ENTRYPOINT ["java","-jar","-Dspring.datasource.url=jdbc:sqlserver://localhost;instanceName=SQLEXPRESS;databaseName=master;user=sa;‌​password=P@ssw0rd","-Dserver.port=8080","-Dspring.jpa.show-sql=false","-Dspring.jpa.hibernate.ddl-auto=update","-Dspring.boot.admin.client.url=http://localhost:8008","/APIBackendTestApplication.war"]

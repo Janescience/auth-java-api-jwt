@@ -49,11 +49,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf()
+        httpSecurity
+                // disable csrf
+                .csrf()
                 .disable()
+
+                .cors().and()
+                // allow
                 .authorizeRequests()
-                .antMatchers("/authenticate", "/register")
+                .antMatchers("/authenticate", "/register","/v2/api-docs", "/swagger-resources/configuration/ui", "/swagger-resources", "/swagger-resources/configuration/security", "/swagger-ui.html", "/webjars/**")
                 .permitAll()
+                .and()
+
+
+                // enable authorization
+                .authorizeRequests()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -61,7 +71,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(JWTAuthenticationEntryPoint)
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        httpSecurity.addFilterBefore(JWTAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
+                // Custom JWT based security filter
+                .and()
+                .addFilterBefore(JWTAuthenticationTokenFilter,
+                        UsernamePasswordAuthenticationFilter.class)
+
+                // disable page caching
+                .headers()
+                .cacheControl();
     }
+
 }
