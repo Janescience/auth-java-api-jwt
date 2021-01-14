@@ -13,7 +13,7 @@ Spring Boot + JWT + Mockito
 
 ## Design
 ### Structure Database (ER Diagram)
-![](images/er-daigram.png)
+![](images/er-diagram.png)
 
 ## API Design
 ### API Description
