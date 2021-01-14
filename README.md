@@ -42,7 +42,7 @@ JSON Request
 {
     "username":"test",
     "password":"P@ssw0rd",
-    "phone":"099-999-9999",
+    "phoneNumber":"0999999999",
     "salary": 0.00 ,
     "address":"test address"
 }
