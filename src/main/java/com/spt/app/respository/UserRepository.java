@@ -1,6 +1,6 @@
 package com.spt.app.respository;
 
-import com.spt.app.model.User;
+import com.spt.app.entity.app.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

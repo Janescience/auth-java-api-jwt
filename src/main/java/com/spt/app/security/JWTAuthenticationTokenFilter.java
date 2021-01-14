@@ -1,5 +1,6 @@
 package com.spt.app.security;
 
+import com.spt.app.service.JwtUserDetailsService;
 import com.spt.app.service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import java.io.IOException;
 public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Autowired
-    private UserService userService;
+    private JwtUserDetailsService jwtUserDetailsService;
 
     @Autowired
     private JWTPrinciple JWTPrinciple;
@@ -49,7 +50,7 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            UserDetails userDetails = this.userService.loadUserByUsername(username);
+            UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(username);
 
             if (JWTPrinciple.validateToken(jwtToken, userDetails)) {
 
