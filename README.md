@@ -1,21 +1,55 @@
 # Register & Authentication Service 
 
-Spring Boot + JWT
-# Content
+Spring Boot + JWT + Mockito
+## Content
 - [Design](#Design)  
   - [Diagram](#ER-Diagram)
   - [Api Design](#Api-Design)
     - [Authentication](#API-Authentication)
     - [Registration](#API-Registration)
-    - [User](#API-User)
+    - [Greetion](#API-Greetion)
 - [Installation](#Installation)
 - [Usage](#Usage) 
 
 ## Design
-### Structure Database 
+### Structure Database (ER Diagram)
+![](images/er-daigram.png)
 
+## API Design
+### API Description
+|  API Name| API URL  | HTTP Method |
+|---|---|---|
+|  [Registration](#API-Registeration) | http://localhost:8008/api/register    | POST |
+|  [Authentication](#API-Authentication)| http://localhost:8008/api/authenticate | POST |
+|  [Greetion](#API-Greetion) | http://localhost:8008/api/greeting | GET |
 
-## Installation (Window)
+### API Registration
+**HTTP Method** : POST
+
+**URL** : http://localhost:8008/api/register
+
+Request Model
+|  Field Name | Data Type  | Length | Not Null |
+|---|---|---|---|
+| username  | string    | 255| Y |
+| password | string | 255 | Y |
+| salary| double | | Y |
+| phoneNumber | string | 10 | Y |
+| address| string | 1000 | N | 
+
+JSON Request
+```json
+{
+    "username":"test",
+    "password":"P@ssw0rd",
+    "phone":"099-999-9999",
+    "salary": 0.00 ,
+    "address":"test address"
+}
+```
+Response Model
+
+## Installation
 ### Database
 
 1. Install [Docker](https://www.docker.com/products/docker-desktop) 
@@ -44,8 +78,8 @@ http://localhost:8008/register
 {
     "username":string(255),
     "password":string(255),
-    "phone":string(10),
-    "salary":double,
+    "phoneNumber":string(10),
+    "salary": 0.00 ,
     "address":string(1000)
 }
 
