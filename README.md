@@ -1,20 +1,19 @@
 # Register & Authentication Service 
 
 Spring Boot + JWT
+# Content
+- [Design](#Design)  
+  - [Diagram](#ER-Diagram)
+  - [Api Design](#Api-Design)
+    - [Authentication](#API-Authentication)
+    - [Registration](#API-Registration)
+    - [User](#API-User)
+- [Installation](#Installation)
+- [Usage](#Usage) 
+
 ## Design
-### Structure Database (SQLServer)
-```sql
-create table users (
-		id bigint not null,
-		address varchar(1000),
-		member_type varchar(255),
-		password varchar(255),
-		phone varchar(10),
-		ref_code varchar(12),
-		salary double precision,
-		username varchar(255),
-primary key (id))
-```
+### Structure Database 
+
 
 ## Installation (Window)
 ### Database
