@@ -7,11 +7,8 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class AuthenticationRequest {
 
     private String username;
-
     private String password;
 }

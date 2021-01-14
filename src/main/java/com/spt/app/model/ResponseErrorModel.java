@@ -8,5 +8,4 @@ public class ResponseErrorModel {
     private String code;
     private String status;
     private String info;
-
 }

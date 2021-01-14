@@ -24,7 +24,7 @@ public class EntityListener {
 
     @Autowired
     public void setAuthorizeUtil(AuthorizeUtil service) {
-        this.authorizeUtil = service;
+        authorizeUtil = service;
     }
 
     @PrePersist
@@ -67,15 +67,14 @@ public class EntityListener {
             BeanUtils.setProperty(arg, "createdDate", currentDate);
         }
         Class cls = arg.getClass();
-        Object target = arg;
         for (Field field : cls.getDeclaredFields()) {
             Field strField = ReflectionUtils.findField(cls, field.getName());
             if (strField.getType().equals(String.class)) {
                 strField.setAccessible(true);
-                Object value = ReflectionUtils.getField(strField, target);
+                Object value = ReflectionUtils.getField(strField, arg);
                 if (AppUtil.isNotNull(value) && AppUtil.isEmpty(value.toString())) {
                     ReflectionUtils.makeAccessible(strField); //set null when emptyString
-                    ReflectionUtils.setField(strField, target, null);
+                    ReflectionUtils.setField(strField, arg, null);
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.spt.app.security;
 
+import com.spt.app.util.DateUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -8,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,11 +28,11 @@ public class JWTPrinciple implements Serializable {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
-    private Date getExpirationDateFromToken(String token) {
+    public Date getExpirationDateFromToken(String token) {
         return getClaimFromToken(token, Claims::getExpiration);
     }
 
-    private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+    public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
     }
@@ -49,13 +52,15 @@ public class JWTPrinciple implements Serializable {
     }
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
-
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
-                .signWith(SignatureAlgorithm.HS512, secret).compact();
+        Instant now = Instant.now();
+        return Jwts.builder()
+                .setSubject(subject)
+                .setIssuedAt(DateUtil.getCurrentDate())
+                .setExpiration(Date.from(now.plus(5L, ChronoUnit.HOURS)))
+                .signWith(SignatureAlgorithm.HS256, secret).compact();
     }
 
-    Boolean validateToken(String token, UserDetails userDetails) {
+    public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }

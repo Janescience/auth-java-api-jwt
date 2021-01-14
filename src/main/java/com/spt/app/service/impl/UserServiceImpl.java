@@ -6,6 +6,7 @@ import com.spt.app.model.UserDTO;
 import com.spt.app.respository.MemberTypeRepository;
 import com.spt.app.respository.UserRepository;
 import com.spt.app.service.UserService;
+import com.spt.app.util.AuthorizeUtil;
 import com.spt.app.util.CustomException;
 import com.spt.app.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,7 @@ import java.util.regex.Pattern;
 @Service
 public class UserServiceImpl implements UserService {
 
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd", Locale.US);
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd", Locale.US);
 
     @Autowired
     private UserRepository userRepository;
@@ -41,6 +42,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private MemberTypeRepository memberTypeRepository;
+
+    @Autowired
+    private AuthorizeUtil authorizeUtil;
 
 
     @Override
@@ -80,6 +84,13 @@ public class UserServiceImpl implements UserService {
         userRepository.save(newUser);
         return newUser;
 
+    }
+
+    @Override
+    public User getUser() {
+        String username = authorizeUtil.getUsername();
+        log.debug("User : {}", username);
+        return userRepository.findByUsername(username);
     }
 
     private String generateRefCode(Date registerDate, String phoneNumber) {

@@ -7,4 +7,5 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UserService {
     User register(UserDTO user);
+    User getUser();
 }
