@@ -7,10 +7,10 @@ Spring Boot + JWT + Swagger + Docker + Mockito
 ## Content
 - [Design](#Design)  
   - [Diagram](#Design)
-  - [Api Design](#API Design)
-    - [Registration](#API Registration)
-    - [Authentication](#API Authentication)
-    - [Get User](#API User)
+  - [Api Design](#API-Design)
+    - [Registration](#API-Registration)
+    - [Authentication](#API-Authentication)
+    - [Get User](#API-User)
 - [Installation](#Installation)
 - [Usage](#Usage) 
 
@@ -310,13 +310,9 @@ curl -X GET "http://localhost:8008/api/user" -H "accept: */*" -H "Authorization:
 ## Installation
 ### Required
 
-- [Docker]: https://www.docker.com/products/docker-desktop "Docker"
+- [Docker](https://www.docker.com/products/docker-desktop) version 19.03.3 or greater
 
-  version 19.03.3 or greater
-
-- [Docker-compose]: https://dockerlabs.collabnix.com/intermediate/workshop/DockerCompose/How_to_Install_Docker_Compose.html "Docker-compose"
-
-   version 1.25.4 or greater
+- [Docker-compose](https://dockerlabs.collabnix.com/intermediate/workshop/DockerCompose/How_to_Install_Docker_Compose.html) version 1.25.4 or greater
 
 - Port : 8008 for Web API
 
