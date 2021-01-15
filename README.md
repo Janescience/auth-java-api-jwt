@@ -1,169 +1,350 @@
 # Register & Authentication Service 
 
-Spring Boot + JWT + Mockito
+Spring Boot + JWT + Swagger + Docker + Mockito
+
+
+
 ## Content
 - [Design](#Design)  
+  
   - [Diagram](#ER-Diagram)
   - [Api Design](#Api-Design)
     - [Authentication](#API-Authentication)
     - [Registration](#API-Registration)
-    - [Greetion](#API-Greetion)
+    - [Get User](#API-User)
+  
 - [Installation](#Installation)
+
 - [Usage](#Usage) 
 
+  
+
+## Flow
+
+#### Registeration  =>  Authentication  =>  Get User
+
+
+
 ## Design
+
 ### Structure Database (ER Diagram)
-![](images/er-daigram.png)
+![](images/er-diagram.png)
+
+
 
 ## API Design
 ### API Description
-|  API Name| API URL  | HTTP Method |
-|---|---|---|
-|  [Registration](#API-Registeration) | http://localhost:8008/api/register    | POST |
-|  [Authentication](#API-Authentication)| http://localhost:8008/api/authenticate | POST |
-|  [Greetion](#API-Greetion) | http://localhost:8008/api/greeting | GET |
+|  API Name| API URL  | Permission | HTTP Method |
+|---|---|---|---|
+|  [Registration](#API-Registeration) | http://localhost:8008/api/register    | All | POST |
+|  [Authentication](#API-Authentication)| http://localhost:8008/api/authenticate | All | POST |
+| [Get User](#API-User) | http://localhost:8008/api/user | Authentication | GET |
+
+
 
 ### API Registration
-**HTTP Method** : POST
 
 **URL** : http://localhost:8008/api/register
 
-Request Model
+**HTTP Method** : POST
+
+**Request Model**
+
 |  Field Name | Data Type  | Length | Not Null |
 |---|---|---|---|
 | username  | string    | 255| Y |
 | password | string | 255 | Y |
 | salary| double | | Y |
 | phoneNumber | string | 10 | Y |
-| address| string | 1000 | N | 
+| address| string | 1000 | N |
 
-JSON Request
+**JSON Request**
+
 ```json
 {
     "username":"test",
     "password":"P@ssw0rd",
-    "phone":"099-999-9999",
+    "phone":"0999999999",
     "salary": 0.00 ,
     "address":"test address"
 }
 ```
-Response Model
+
+
+**Success Response Model**
+
+| Field Name | Data Type | Description              |
+| ---------- | --------- | ------------------------ |
+| code       | string    | 200                      |
+| data       | object    | User data                |
+| message    | string    | Registered Successfully. |
+| status     | string    | success                  |
+
+**Error Response Model**
+
+| Field Name | Data Type | Description        |
+| ---------- | --------- | ------------------ |
+| code       | string    | Http status code.  |
+| message    | string    | Error message.     |
+| status     | string    | error              |
+| info       | string    | Error information. |
+
+
+
+**JSON Success Response**
+
+```json
+{
+  "message": "Registered Successfully.",
+  "code": "200",
+  "data": {
+    "createdBy": "jane",
+    "updatedBy": "jane",
+    "createdDate": "2021-01-15 03:36:42",
+    "updatedDate": "2021-01-15 03:36:42",
+    "username": "jane",
+    "address": "test addr",
+    "phoneNumber": "0981230824",
+    "refCode": "202101150824",
+    "salary": 50000,
+    "memberType": {
+      "createdBy": "system",
+      "updatedBy": "system",
+      "createdDate": "2021-01-13 17:00:00",
+      "updatedDate": "2021-01-13 17:00:00",
+      "name": "Platinum",
+      "code": "01"
+    }
+  },
+  "status": "success"
+}
+```
+
+**JSON Error Response**
+
+```json
+{
+  "message": "Information entered is incorrect.",
+  "code": "202",
+  "status": "error",
+  "info": "Username has already been used."
+}
+```
+
+
+
+### API Authentication
+
+**URL** : http://localhost:8008/api/authenticate
+
+**HTTP Method** : POST
+
+**Request Model**
+
+| Field Name | Data Type | Length | Not Null |
+| ---------- | --------- | ------ | -------- |
+| username   | string    | 255    | Y        |
+| password   | string    | 255    | Y        |
+
+**JSON Request**
+
+```json
+{
+    "username":"test",
+    "password":"P@ssw0rd"
+}
+```
+
+
+
+**Success Response Model**
+
+| Field Name       | Data Type | Description    |
+| ---------------- | --------- | -------------- |
+| code             | string    | 200            |
+| data.accessToken | string    | Access token.  |
+| data.userInfo    | object    | User data.     |
+| message          | string    | Authenticated. |
+| status           | string    | success        |
+
+**Error Response Model**
+
+| Field Name | Data Type | Description        |
+| ---------- | --------- | ------------------ |
+| code       | string    | Http status code.  |
+| message    | string    | Error message.     |
+| status     | string    | error              |
+| info       | string    | Error information. |
+
+
+
+**JSON Success Response**
+
+```json
+{
+  "message": "Authenticated.",
+  "code": "200",
+  "data": {
+    "accessToken": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW5lIiwiaWF0IjoxNjEwNjgzODgzLCJleHAiOjE2MTA3MDE4ODN9.V8dwdlY8NNJXCfN_GfhEmxXW-JEjCYx5-tL06uCzb9Q",
+    "userInfo": {
+      "createdBy": "jane",
+      "updatedBy": "jane",
+      "createdDate": "2021-01-15 03:36:42",
+      "updatedDate": "2021-01-15 03:36:42",
+      "username": "jane",
+      "address": "test addr",
+      "phoneNumber": "0981230824",
+      "refCode": "202101150824",
+      "salary": 50000,
+      "memberType": {
+        "createdBy": "system",
+        "updatedBy": "system",
+        "createdDate": "2021-01-13 17:00:00",
+        "updatedDate": "2021-01-13 17:00:00",
+        "name": "Platinum",
+        "code": "01"
+      }
+    }
+  },
+  "status": "success"
+```
+
+**JSON Error Response**
+
+```json
+{
+  "message": "User not found with username: janex",
+  "code": "500",
+  "status": "error",
+  "info": null
+}
+```
+
+
+
+### API User
+
+**URL** : http://localhost:8008/api/user
+
+**HTTP Method** : GET
+
+**HTTP Header Authorization Ex. Curl**
+
+```bash
+curl -X GET "http://localhost:8008/api/user" -H "accept: */*" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYW5lIiwiaWF0IjoxNjEwNjg0ODk4LCJleHAiOjE2MTA3MDI4OTh9._rYmTPC9A_XGsSRT1QPfnV61ZNb_ofnd7i6s3J4_Tc0"
+```
+
+
+
+**Success Response Model**
+
+| Field Name | Data Type | Description |
+| ---------- | --------- | ----------- |
+| code       | string    | 200         |
+| data       | object    | User data.  |
+| message    | string    | Success.    |
+| status     | string    | success     |
+
+**Error Response Model**
+
+| Field Name | Data Type | Description                |
+| ---------- | --------- | -------------------------- |
+| status     | string    | Http status code.          |
+| message    | string    | Error message.             |
+| error      | string    | Error description.         |
+| timestamp  | long      | Current time milliseconds. |
+| path       | string    | Current path.              |
+
+
+
+**JSON Success Response**
+
+```json
+{
+  "message": "Success.",
+  "code": "200",
+  "data": {
+    "createdBy": "jane",
+    "updatedBy": "jane",
+    "createdDate": "2021-01-15 03:36:42",
+    "updatedDate": "2021-01-15 03:36:42",
+    "username": "jane",
+    "address": "test addr",
+    "phoneNumber": "0981230824",
+    "refCode": "202101150824",
+    "salary": 50000,
+    "memberType": {
+      "createdBy": "system",
+      "updatedBy": "system",
+      "createdDate": "2021-01-13 17:00:00",
+      "updatedDate": "2021-01-13 17:00:00",
+      "name": "Platinum",
+      "code": "01"
+    }
+  },
+  "status": "success"
+}
+```
+
+**JSON Error Response**
+
+```json
+{
+  "timestamp": 1610686401405,
+  "status": 500,
+  "error": "Internal Server Error",
+  "message": "JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.",
+  "path": "/api/user"
+}
+```
+
+```json
+{
+  "timestamp": 1610686530399,
+  "status": 401,
+  "error": "Unauthorized",
+  "message": "Unauthorized",
+  "path": "/api/user"
+}
+```
+
+
 
 ## Installation
-### Database
+### Required
 
-1. Install [Docker](https://www.docker.com/products/docker-desktop) 
+- [Docker]: https://www.docker.com/products/docker-desktop
 
-2. Install [SQLServer on Docker](https://octopus.com/blog/running-sql-server-developer-install-with-docker)
+  version 19.03.3 or greater
 
-3. Connect to database with [Microsoft SQL Server Management Studio 18](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15) and create new database name is "javabackendtest"
+- [Docker-compose]: https://dockerlabs.collabnix.com/intermediate/workshop/DockerCompose/How_to_Install_Docker_Compose.html
 
-### Java
-1. Download & Install [Java 1.8](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)
+   version 1.25.4 or greater
+
+- Port : 8008 for Web API
+
+- Port : 5432 for Postgres SQL database
 
 
 
 ## Usage
-### Run with IDE (Intellij)
- Open project on IDE with Maven and Run project with Spring Boot
-### API 
-#### Register (POST)
+#### Step 1 - Run web service
 
+After clone project go to folder and use command `./build.sh`
 
-```bash
-#URL
-http://localhost:8008/register
-
-#JSON Request
-{
-    "username":string(255),
-    "password":string(255),
-    "phoneNumber":string(10),
-    "salary": 0.00 ,
-    "address":string(1000)
-}
-
-#JSON Response (Success)
-{
-    "success": {
-        "code": "201",
-        "data": {
-            "userInfo": {
-                "address": string(1000),
-                "id": bigint,
-                "memberType": string(255),
-                "phone": string(10),
-                "refCode": YYYYMMDD + Last 4 Digit phone,
-                "salary": double,
-                "username": string(255)
-            }
-        },
-        "message": "Registered Successfully"
-    }
-}
-
-#JSON Response (Error)
-{
-    "error": {
-        "code": Http Status Code,
-        "message": Error details
-    }
-}
-
-```
-#### Authentication (POST)
-
+If can run is show message below.
 
 ```bash
-#URL
-http://localhost:8008/authenticate
-
-#JSON Request
-{
-    "username":string(255),
-    "password":string(255)
-}
-
-#JSON Response (Success)
-{
-    "success": {
-        "code": "200",
-        "data": {
-            "userInfo": {
-                "address": string(1000),
-                "id": bigint,
-                "memberType": string(255),
-                "phone": string(10),
-                "refCode": YYYYMMDD + Last 4 Digit phone,
-                "salary": double,
-                "username": string(255)
-            },
-            "token": Access Token
-        },
-        "message": "Authenticated"
-    }
-}
-
-#JSON Response (Error)
-{
-    "error": {
-        "code": Http Status Code,
-        "message": Error details
-    }
-}
+app    | 2021-01-15 10:30:13.227  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path '/api'
+app    | 2021-01-15 10:30:13.231  INFO 1 --- [           main] com.spt.app.APIBackendTestApplication    : Started APIBackendTestApplication in 14.654 seconds (JVM running for 16.071)
+app    | 2021-01-15 10:30:13.259  INFO 1 --- [           main] com.spt.app.spring.ApplicationStartup    : ApplicationStartup.....!
+app    | 2021-01-15 10:30:13.259  INFO 1 --- [           main] com.spt.app.spring.ApplicationStartup    : Swagger UI : /swagger-ui.html
 
 ```
-#### Verify (GET)
 
+#### Step 2 - Test API via browser
 
-```bash
-#URL
-http://localhost:8008/greeting
+Test the service through the URL : http://localhost:8008/api/swagger-ui.html
 
-#Request Headers
-Authorization : Bearer 'Token'
+![](images\swagger-ui.png)
 
-#Response (Success)
-Welcome 'username' :D
-
-```

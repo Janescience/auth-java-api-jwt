@@ -40,7 +40,7 @@ public class AuthenticateServiceImpl implements AuthenticateService{
         } catch (DisabledException e) {
             throw new CustomException("USER_DISABLED", "202");
         } catch (BadCredentialsException e) {
-            throw new CustomException("Invalid credentials.", "201","Username or password incorrect.");
+            throw new CustomException("Invalid credentials.","401","Username or password incorrect.");
         }
     }
 }

@@ -36,7 +36,7 @@ public class AuthenticationController {
     @PostMapping("/authenticate")
     public ResponseModel createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) {
         Map userInfoMap = new HashMap();
-        userInfoMap.put("access_token", TOKEN_PREFIX + " " + authenticateService.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+        userInfoMap.put("accessToken", TOKEN_PREFIX + " " + authenticateService.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
         userInfoMap.put("userInfo", userRepository.findByUsername(authenticationRequest.getUsername()));
         return new ResponseModel("Authenticated.", userInfoMap);
     }
