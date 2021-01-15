@@ -5,7 +5,8 @@ Spring Boot + JWT + Swagger + Docker + Mockito
 
 
 ## Content
-- [Design](#Design)  
+- [Design](#Design)
+  - [Flow](#Flow)
   - [Diagram](#Design)
   - [Api Design](#API-Design)
     - [Registration](#API-Registration)
